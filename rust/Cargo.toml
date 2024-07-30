@@ -1,0 +1,12 @@
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nix = { version = "0.26.2", features = ["process", "hostname", "sched"] }
+clap = { version = "4.3.0", features = ["derive"] }
+
+[[bin]]
+name = "rust"
+path = "main.rs"

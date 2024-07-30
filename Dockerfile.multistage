@@ -1,0 +1,24 @@
+FROM golang:1.21 as builder
+WORKDIR /src
+COPY <<EOF ./hello.go
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+func main() {
+  	fmt.Printf(
+		"Hello world from %s/%s\n",
+		runtime.GOOS,
+		runtime.GOARCH,
+	)
+}
+EOF
+
+RUN go build -o /bin/hello ./hello.go
+
+FROM scratch
+COPY --from=builder /bin/hello /bin/hello
+#COPY --from=0 /bin/hello /bin/hello
+CMD ["/bin/hello"]
